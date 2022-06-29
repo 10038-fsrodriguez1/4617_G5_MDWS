@@ -1,0 +1,40 @@
+package Registro;
+import java.util.Scanner;
+
+public class RegistroDatos {
+    boolean validacion=false;
+    private static RegistroDatos registroDatos=new RegistroDatos();
+    private Datos datos=new Datos();
+    private Scanner teclado=new Scanner (System.in);  //Se utiliza para ingresar datos por teclado
+    
+    public boolean system(String superUsuario, String administrador){
+        boolean validate = false;
+        if (superUsuario.equalsIgnoreCase("superUsuario")&&administrador.equalsIgnoreCase("administrador")){
+            validate=true;
+        }
+        return validate;
+    }
+    
+    public void ingresarDatos(){
+        datos.setNombre(teclado.nextLine());
+        System.out.println("Ingrese su apellido: ");datos.setApellidos(teclado.nextLine());
+        System.out.println("Ingrese su número de cédula: ");datos.setCedula(teclado.nextLine());
+        System.out.println("Ingrese su dirección: ");datos.setDireccion(teclado.nextLine());
+        System.out.println("Ingrese su número telefónico: ");datos.setNumcelular(teclado.nextLine());
+        
+    }
+    
+    public void imprimirDatos(){
+        System.out.println("***IMPRESIÓN DE DATOS***");
+        System.out.println("NOMBRE REGISTRADO: "+datos.getNombre()+" "+datos.getApellidos());
+        System.out.println("NÚMERO DE CÉDULA REGISTRADO: "+datos.getCedula());
+        System.out.println("DIRECCIÓN: "+datos.getDireccion());
+        System.out.println("NÚMERO TELEFÓNICO: "+datos.getNumcelular());       
+    }
+    
+    public static void main(String[] args) {
+        registroDatos.ingresarDatos();
+        registroDatos.imprimirDatos();
+        
+    }
+}
