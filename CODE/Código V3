@@ -1,0 +1,95 @@
+package Registro;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class RegistroDatos2 {
+    private static Datos datos=new Datos();
+    private static RegistroDatos2 archivos=new RegistroDatos2();
+    private static Scanner teclado=new Scanner(System.in);
+    private String datosUsuario=new String("");
+
+    public RegistroDatos2() {
+    }
+    
+    public void grabarArchivo(String dato) throws IOException 
+    //throws: para proteger el archivo de posibles errore y añade excepcion 
+    {
+        try {
+            System.out.println("dato : "+ dato);
+           // FileWriter fw = new FileWriter("d:/datos.txt", true);//abre el archivo
+            FileWriter fw = new FileWriter("datosUsuarios.txt", true);//abre el archivo
+            BufferedWriter bw = new BufferedWriter(fw); //lo k escribo en el programa va a grabarse
+            bw.write(dato +"\t\n");
+            bw.close();
+        }
+        catch(Exception e){
+            throw e;
+        }
+    }
+    
+    public void leerArchivo()
+    {
+        try {
+         // Apertura del fichero y creacion de BufferedReader para poder
+         // hacer una lectura comoda (disponer del metodo readLine()).
+         File archivo = new File ("datosUsuario.txt");
+         FileReader fr = new FileReader (archivo);
+         BufferedReader  br = new BufferedReader(fr);
+
+         // Lectura del fichero
+         String linea;
+         linea=datos.getNombre()+" "+datos.getApellidos()+" "+datos.getCedula()+" "+datos.getDireccion()+"\t"+datos.getNumcelular();
+         while((linea=br.readLine())!=null)
+            System.out.println(linea);
+      }
+      catch(Exception e){
+         e.printStackTrace();
+      }
+    }
+    
+    public static void ingresarUsuario(){
+        String auxiliar;
+        auxiliar=teclado.nextLine();
+        System.out.println("Ingrese su nombre: ");datos.setNombre(teclado.nextLine());
+        System.out.println("Ingrese su apellido: ");datos.setApellidos(teclado.nextLine());
+        System.out.println("Ingrese su número de cédula: ");datos.setCedula(teclado.nextLine());
+        System.out.println("Ingrese su dirección: ");datos.setDireccion(teclado.nextLine());
+        System.out.println("Ingrese su número telefónico: ");datos.setNumcelular(teclado.nextLine());        
+    }
+    
+    public static void main(String[] args) {
+        String cadena=new String("");
+        
+        
+       int opciones=0;
+       while(opciones != 4 )
+       {
+           System.out.println("1. Ingresar datos");      
+           System.out.println("2. Grabar archivo");
+           System.out.println("3. Salir");
+           System.out.println("Seleccione una opcion");
+           
+           opciones=teclado.nextInt();
+           
+           switch(opciones)
+           {
+               case 1: archivos.ingresarUsuario();break;               
+               case 2:  
+                   cadena=datos.getNombre()+" "+datos.getApellidos()+" "+datos.getCedula()+" "+datos.getDireccion()+" "+datos.getNumcelular();
+                   try{archivos.grabarArchivo(cadena);}
+                    catch(IOException io)
+                    {
+                        System.out.println("Error "+io.getMessage());
+                    }
+               case 3: break;
+           }//----switch
+       }//while
+    }
+    
+}
