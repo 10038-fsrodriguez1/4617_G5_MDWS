@@ -20,16 +20,15 @@ $usuClave = $_POST['usu_pass'];
   if ($conn ->connect_error) {
     die("Connection failed: " . $conn ->connect_error);
   }
-
+if (empty($_POST['usu_nombre']) && empty($_POST['usu_cedula']) && empty($_POST['usu_user']) && empty($_POST['usu_pass'])){
+  echo "<h1>Vuelva a intentar</h1>";
+}else{
    // Consulta a la base de datos.
 $query = "INSERT INTO  `usuarios`(`usu_nombre`,`usu_cedula`,`usu_user`,`usu_password`) VALUES ('$usuNombre','$usuCI','$usuUser','$usuClave')";
   $resultado = mysqli_query($conn,$query);
   //Verifica que la consulta se realizo con o sin coincidencias en la base
   if($resultado){
-    echo 'los datos han sido grabados<br/>';
+    echo "<h1>Los datos han sido grabados</h1>";
 	   }
-    else
-	   {
-        echo("Ups...! algo salió mal");}
-
+}
 ?>
